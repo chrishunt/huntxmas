@@ -22,6 +22,13 @@ describe User do
     @user.save.should == false
   end
 
+  it 'requires unique email address' do
+    user1 = Factory.build(:user, :email => 'user@email.com')
+    user1.save.should == true
+    user2 = Factory.build(:user, :email => 'user@email.com')
+    user2.save.should == false
+  end
+
   it 'requires presence of password' do
     @user.password = nil
     @user.save.should == false
