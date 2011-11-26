@@ -16,3 +16,4 @@
 
 # Ignore vim temp files
 *.swp
+tags
