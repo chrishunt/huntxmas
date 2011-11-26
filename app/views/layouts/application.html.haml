@@ -1,0 +1,13 @@
+!!! 5
+%html
+  %head
+    %title= 'Christmas List'
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    - if flash
+      %ul#flash-messages
+        - flash.each do |type, message|
+          %li{:class => "flash #{type}"}= message
+    = yield
