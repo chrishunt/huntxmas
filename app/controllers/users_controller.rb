@@ -9,10 +9,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:notice] = "Account Created"
-      redirect_to @user
+      redirect_to login_path, :notice => "Account created! You may now login."
     else
-      render 'new'
+      render 'new', :error => "Sorry! There were errors creating your account."
     end
   end
 

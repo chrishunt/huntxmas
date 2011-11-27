@@ -17,4 +17,6 @@ Feature:
     And I fill in 'user_email' with 'user@domain.com'
     And I fill in 'user_password' with 'password'
     And I click the button 'Create Account'
-    Then I should see 'Account Created'
+    Then I should see 'Account created'
+    And I should see 'now login'
+    And I should be on the login page
