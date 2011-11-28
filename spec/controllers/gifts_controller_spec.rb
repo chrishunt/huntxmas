@@ -1,31 +1,44 @@
 require 'spec_helper.rb'
 
 describe GiftsController do
-  describe '#index' do
-    before(:each) do
-      @user1 = Factory(:user)
-      @user2 = Factory(:user)
-      @gift1 = Factory(:gift, :user => @user1)
-      @gift2 = Factory(:gift, :user => @user2)
-      @gift3 = Factory(:gift, :user => @user1)
-      get :index, :user_id => @user1
-    end
+  before(:each) do
+    @user = Factory(:user)
+  end
 
-    it "returns list of all user's gifts" do
-      assigns(:gifts).should == [@gift1, @gift3]
+  context 'when not logged in' do
+    it 'redirects to login page' do
+      get :index, :user_id => @user.id
+      response.should redirect_to(login_path)
+
+      get :new, :user_id => @user.id
+      response.should redirect_to(login_path)
+
+      post :create, :user_id => @user.id
+      response.should redirect_to(login_path)
     end
   end
 
-  describe '#new' do
+  context 'when logged in' do
     before(:each) do
-      @user = Factory(:user)
+      session[:user_id] = @user.id
     end
 
-    context 'when logged in' do
+    describe '#index' do
       before(:each) do
-        session[:user_id] = @user.id
+        @user1 = Factory(:user)
+        @user2 = Factory(:user)
+        @gift1 = Factory(:gift, :user => @user1)
+        @gift2 = Factory(:gift, :user => @user2)
+        @gift3 = Factory(:gift, :user => @user1)
+        get :index, :user_id => @user1
       end
 
+      it "returns list of all user's gifts" do
+        assigns(:gifts).should == [@gift1, @gift3]
+      end
+    end
+
+    describe '#new' do
       context 'when user id is valid' do
         before(:each) do
           get :new, :user_id => @user
@@ -55,51 +68,40 @@ describe GiftsController do
       end
     end
 
-    context 'when not logged in' do
+    describe '#create' do
       before(:each) do
-        get :new, :user_id => @user
+        Gift.all.size.should == 0
+        @gift = Factory.build(:gift, :user => @user)
       end
 
-      it 'should redirect to login page' do
-        response.should redirect_to(login_path)
-      end
-    end
-  end
+      context 'with valid gift attributes' do
+        before(:each) do
+          post :create, :user_id => @user, :gift => @gift.attributes
+        end
 
-  describe '#create' do
-    before(:each) do
-      Gift.all.size.should == 0
-      @user = Factory(:user)
-      @gift = Factory.build(:gift, :user => @user)
-    end
+        it 'saves gift in database' do
+          Gift.all.size.should == 1
+        end
 
-    context 'with valid gift attributes' do
-      before(:each) do
-        post :create, :user_id => @user, :gift => @gift.attributes
-      end
+        it 'assigns gift as instance variable' do
+          assigns(:gift).name.should == @gift.name
+          assigns(:gift).url.should == @gift.url
+        end
 
-      it 'saves gift in database' do
-        Gift.all.size.should == 1
+        it 'redirects back to user gift list' do
+          response.should redirect_to(user_gifts_path(@user))
+        end
       end
 
-      it 'assigns gift as instance variable' do
-        assigns(:gift).name.should == @gift.name
-        assigns(:gift).url.should == @gift.url
-      end
+      context 'with invalid gift attributes' do
+        before(:each) do
+          @gift.name = nil
+          post :create, :user_id => @user, :gift => @gift.attributes
+        end
 
-      it 'redirects back to user gift list' do
-        response.should redirect_to(user_gifts_path(@user))
-      end
-    end
-
-    context 'with invalid gift attributes' do
-      before(:each) do
-        @gift.name = nil
-        post :create, :user_id => @user, :gift => @gift.attributes
-      end
-
-      it 'should not redirect to gift list' do
-        response.should_not be_redirect
+        it 'should not redirect to gift list' do
+          response.should_not be_redirect
+        end
       end
     end
   end
