@@ -10,4 +10,13 @@
       %ul#flash-messages
         - flash.each do |type, message|
           %li{:class => "flash #{type}"}= message
-    = yield
+    #container
+      #header
+        #current-user
+          - if current_user
+            = "Logged in as #{current_user.name}"
+            = link_to 'logout', logout_path
+          - else
+            = link_to 'login', login_path
+      #content
+        = yield

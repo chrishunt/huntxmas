@@ -3,6 +3,11 @@ Feature:
   As a user
   I want to be able to login
 
+  Scenario: Clicking the login link
+    Given I am on the login page
+    When I click the link 'login'
+    Then I should be on the login page
+
   Scenario: I enter a valid username and password
     Given I have a test user created
     And I am on the login page
