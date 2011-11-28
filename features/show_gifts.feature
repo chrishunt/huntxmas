@@ -27,4 +27,3 @@ Feature:
     And I am on the users page
     When I click the link 'My List'
     Then I should be on my gift list
-

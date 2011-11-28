@@ -6,6 +6,7 @@ Feature:
   Scenario: I am not logged in
     When I visit the users page
     Then I should see 'Please login'
+    And I should not see 'All Lists'
     And I should be on the login page
 
   Scenario: I am logged in
