@@ -9,18 +9,18 @@ Feature:
     Then I should be on the login page
 
   Scenario: I enter a valid username and password
-    Given I have a test user created
+    Given there are 1 test users created
     And I am on the login page
-    When I fill in 'email' with 'test@domain.com'
+    When I fill in 'email' with 'test_user1@domain.com'
     And I fill in 'password' with 'secret'
     And I click the button 'Login'
-    Then I should see 'Test User'
+    Then I should see 'Test User 1'
     And I should see 'logged in'
 
   Scenario: I enter invalid username or password
-    Given I have a test user created
+    Given there are 1 test users created
     And I am on the login page
-    When I fill in 'email' with 'test@domain.com'
+    When I fill in 'email' with 'test_user1@domain.com'
     And I fill in 'password' with 'invalid'
     And I click the button 'Login'
     Then I should see 'Invalid email or password'

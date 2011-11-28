@@ -1,2 +1,3 @@
 %ul#users
-  %li.user
+  - @users.each do |user|
+    %li.user= link_to user.name, user_gifts_path(user)

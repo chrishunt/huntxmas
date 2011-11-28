@@ -15,6 +15,13 @@ Feature:
     Then I should see selector '#users'
     And I should see selector '.user'
 
+  Scenario: User's names are visible
+    Given I am logged in
+    And there are 2 test users created
+    When I visit the users page
+    Then I should see 'Test User 1'
+    And I should see 'Test User 2'
+
   Scenario: User list link is visible
     Given I am logged in
     When I visit my gift list
