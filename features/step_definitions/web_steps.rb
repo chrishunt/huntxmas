@@ -21,3 +21,7 @@ end
 When /^I click the link '(.*)'$/ do |text|
   click_link text
 end
+
+When /^I visit '(.*)'$/ do |url|
+  visit url
+end

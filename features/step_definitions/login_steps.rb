@@ -9,3 +9,7 @@ Given /^I am logged in$/ do
   fill_in 'password', :with => @user.password
   click_button 'Login'
 end
+
+Given /^I am not logged in$/ do
+  visit logout_path
+end
