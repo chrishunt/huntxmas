@@ -1,4 +1,3 @@
 %ul#gifts
   - @gifts.each do |gift|
-    %li.gift
-      .name= gift.name
+    %li.gift= link_to gift.name, gift.url, :target => 'blank'
