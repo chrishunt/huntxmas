@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => :index
+
   def index
   end
 
@@ -13,8 +15,5 @@ class UsersController < ApplicationController
     else
       render 'new', :error => "Sorry! There were errors creating your account."
     end
-  end
-
-  def show
   end
 end
