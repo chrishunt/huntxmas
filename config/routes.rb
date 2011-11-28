@@ -1,9 +1,12 @@
 Xmaslist::Application.routes.draw do
+  resources :sessions
+
   resources :users do
     resources :gifts
   end
 
-  match 'login' => 'sessions#new'
+  match 'login'  => 'sessions#new'
+  match 'logout' => 'sessions#destroy'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
