@@ -1,5 +1,5 @@
 class GiftsController < ApplicationController
-  before_filter :authenticate, :only => :new
+  before_filter :authenticate
 
   def index
     @gifts = Gift.where('user_id = ?', params[:user_id])

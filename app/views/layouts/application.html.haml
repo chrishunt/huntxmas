@@ -10,6 +10,9 @@
       #header
         %ul#navigation
           %li= link_to 'All Lists', users_path
+          - if current_user
+            %li= link_to 'My List', user_gifts_path(current_user)
+            %li= link_to 'Add Gift', new_user_gift_path(current_user)
         #current-user
           - if current_user
             = "Logged in as #{current_user.name}"

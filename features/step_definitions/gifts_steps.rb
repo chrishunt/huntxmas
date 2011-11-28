@@ -13,3 +13,7 @@ end
 When /^I visit the add gift page$/ do
   visit new_user_gift_path(user)
 end
+
+Then /^I should be on the add gift page$/ do
+  page.current_path.should == new_user_gift_path(user)
+end
