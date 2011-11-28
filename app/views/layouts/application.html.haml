@@ -24,5 +24,4 @@
           %ul#flash-messages
             - flash.each do |type, message|
               %li{:class => "flash #{type}"}= message
-
         = yield
