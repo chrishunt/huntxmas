@@ -49,26 +49,44 @@ describe UsersController do
   describe '#create' do
     before(:each) do
       @user = Factory.build(:user)
+      User.all.count.should == 0
     end
 
-    it 'creates the new user' do
-      post :create, :user => @user.attributes
-      @user.attributes.each do |attr, value|
-        assigns(:user).send(attr).should == value unless attr == 'password_digest'
+    context 'with valid parameters' do
+      before(:each) do
+        post :create, :user => {
+          :name     => @user.name,
+          :email    => @user.email,
+          :password => @user.password }
+      end
+
+      it 'saves the new user in the database' do
+        User.all.count.should == 1
+      end
+
+      it 'assigns the user instance variable' do
+        assigns(:user).name.should     == @user.name
+        assigns(:user).email.should    == @user.email
+        assigns(:user).password.should == @user.password
+      end
+
+      it 'redirects to the login page' do
+        response.should redirect_to(login_path)
       end
     end
 
-    it 'redirects to user path if successful' do
-      pending "Having trouble testing"
-      post :create, :user => @user
-      response.should be_redirect
-    end
+    context 'with invalid parameters' do
+      before(:each) do
+        post :create, :user => {:name => nil}
+      end
 
-    it 'redirects to new user form if unsuccessful' do
-      pending "Having trouble testing"
-      @user.name = nil # create invalid user
-      post :new, :user => @user
-      response.should redirect_to(new_user_path)
+      it 'does not save a user in the database' do
+        User.all.count.should == 0
+      end
+
+      it 'does not redirect' do
+        response.should_not be_redirect
+      end
     end
   end
 end
