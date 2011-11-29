@@ -71,6 +71,10 @@ body {
   }
   #current-user {
     float: right;
+    span {
+      margin-right: 10px;
+      font-weight: bold;
+    }
   }
 }
 

@@ -10,12 +10,16 @@
       #header
         %ul#navigation
           - if current_user
-            %li= link_to 'All Lists', users_path
-            %li= link_to 'My List', user_gifts_path(current_user)
-            %li= link_to 'Add Gift', new_user_gift_path(current_user)
+            %li{:title => 'View all gift lists'}
+              = link_to 'All Lists', users_path
+            %li{:title => 'View your gift list'}
+              = link_to 'My List', user_gifts_path(current_user)
+            %li{:title => 'Add a gift to your gift list'}
+              = link_to 'Add Gift', new_user_gift_path(current_user)
         #current-user
           - if current_user
-            = "Logged in as #{current_user.name}"
+            = "Logged in as "
+            %span= current_user.name
             = link_to 'logout', logout_path
           - else
             = link_to 'login', login_path
