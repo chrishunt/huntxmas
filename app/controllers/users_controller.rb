@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to login_path, :notice => "Account created! You may now login."
     else
-      flash.now[:error] = "Sorry! There were errors creating your account."
+      flash.now[:error] = "Sorry! All fields are required to continue."
       render 'new'
     end
   end

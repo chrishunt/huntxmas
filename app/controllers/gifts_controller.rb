@@ -20,7 +20,7 @@ class GiftsController < ApplicationController
     if @gift.save
       redirect_to user_gifts_path(@user), :notice => 'Your gift has been added!'
     else
-      flash.now[:error] = 'There were errors adding your gift.'
+      flash.now[:error] = 'Both name and url are required!'
       render 'new'
     end
   end
