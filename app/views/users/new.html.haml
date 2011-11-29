@@ -1,11 +1,10 @@
 = form_for @user do |f|
-  = f.label :name
-  = f.text_field :name
-  = f.label :email
-  = f.text_field :email
-  = f.label :password
-  = f.password_field :password
-  = f.submit 'Create Account'
-  =# f.text_field :name
-  =# f.text_field :email
-  =# f.text_field :password
+  .labels
+    = f.label :name
+    = f.label :email
+    = f.label :password
+  .fields
+    = f.text_field :name
+    = f.text_field :email
+    = f.password_field :password
+  = f.submit 'Create Account', :class => 'submit'

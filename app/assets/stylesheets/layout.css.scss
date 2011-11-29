@@ -20,6 +20,41 @@ body {
   }
 }
 
+form {
+  background: $light-green;
+  overflow: hidden;
+  padding: 20px 20px 0 20px;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  label, input {
+    font-size: 120%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  label {
+    padding-top: 10px;
+  }
+  input {
+    padding: 5px;
+  }
+  .labels {
+    margin-right: 20px;
+    float: left;
+  }
+  .fields {
+  }
+  .submit {
+    padding: 0 50px;
+    height: 100px;
+    font-weight: bold;
+    background: #eee;
+    border-radius: 12px;
+    -moz-border-radius: 12px;
+    -webkit-border-radius: 12px;
+  }
+}
+
 #flash-messages {
   margin-bottom: 15px;
   li {
@@ -66,7 +101,7 @@ body {
   #navigation {
     display: inline;
     li {
-      margin-right: 20px;
+      margin-right: 10px;
     }
   }
   #current-user {

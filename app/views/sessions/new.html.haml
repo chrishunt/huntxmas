@@ -1,7 +1,8 @@
 = form_tag sessions_path do
-  = label_tag :email
-  = text_field_tag :email, params[:email]
-  = label_tag :password
-  = password_field_tag :password
-  = submit_tag 'Login'
-= link_to 'Create Account', new_user_path
+  .labels
+    = label_tag :email
+    = label_tag :password
+  .fields
+    = text_field_tag :email, params[:email]
+    = password_field_tag :password
+  = submit_tag 'Login', :class => 'submit'
