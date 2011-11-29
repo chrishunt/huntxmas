@@ -5,7 +5,7 @@ Feature:
 
   Scenario: Clicking the login link
     Given I am on the login page
-    When I click the link 'login'
+    When I click the link 'Login'
     Then I should be on the login page
 
   Scenario: I enter a valid username and password
