@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       redirect_to user_gifts_path(user),
         :notice => "Hello #{user.name}! You are now logged in."
     else
-      flash.now[:error] = "Sorry. Invalid email or password."
+      flash.now[:error] = "Sorry! Invalid email or password."
       render 'new'
     end
   end
