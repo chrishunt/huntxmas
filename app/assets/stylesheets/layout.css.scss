@@ -35,8 +35,9 @@ form {
   label {
     padding-top: 10px;
   }
-  input {
+  input[type='text'], input[type='password'] {
     padding: 5px;
+    width: 400px;
   }
   .labels {
     margin-right: 20px;
