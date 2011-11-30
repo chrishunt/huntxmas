@@ -28,7 +28,7 @@ class GiftsController < ApplicationController
   def edit
     begin
       @gift = Gift.find(params[:id])
-      @user = @gift.user
+      @user = User.find(params[:user_id])
     rescue ActiveRecord::RecordNotFound
       redirect_to users_path
     end
@@ -36,8 +36,8 @@ class GiftsController < ApplicationController
 
   def update
     @gift = Gift.find(params[:id])
-    @user = @gift.user
-    if @gift.update_attributes(params[:gift])
+    @user = User.find(params[:user_id])
+    if current_user == @user && @gift.update_attributes(params[:gift])
       redirect_to user_gifts_path(@gift.user), :notice => 'Your gift has been updated!'
     else
       flash.now[:error] = 'Both name and url are required!'

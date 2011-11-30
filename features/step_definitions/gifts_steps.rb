@@ -22,6 +22,12 @@ When /^I visit my gift list$/ do
   visit user_gifts_path(user)
 end
 
+When /^I visit another user's gift list$/ do
+  another_user = Factory(:user)
+  Factory(:gift, :user => another_user)
+  visit user_gifts_path(another_user)
+end
+
 When /^I visit the add gift page$/ do
   visit new_user_gift_path(user)
 end

@@ -150,30 +150,51 @@ describe GiftsController do
       end
 
       context 'with valid gift attributes' do
-        before(:each) do
-          put :update,
-            :user_id => @user,
-            :id      => @gift,
-            :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+        context 'as the correct user' do
+          before(:each) do
+            put :update,
+              :user_id => @user,
+              :id      => @gift,
+              :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+          end
+
+          it 'updates gift record in database' do
+            saved = Gift.find(@gift)
+            saved.name.should == 'Xbox 360'
+            saved.url.should  == 'http://xbox.com'
+          end
+
+          it 'assigns gift as instance variable' do
+            assigns(:gift).name.should == 'Xbox 360'
+            assigns(:gift).url.should  == 'http://xbox.com'
+          end
+
+          it 'assigns user as instance variable' do
+            assigns(:user).id.should == @user.id
+          end
+
+          it 'redirects back to user gift list' do
+            response.should redirect_to(user_gifts_path(@user))
+          end
         end
 
-        it 'updates gift record in database' do
-          saved = Gift.find(@gift)
-          saved.name.should == 'Xbox 360'
-          saved.url.should  == 'http://xbox.com'
-        end
+        context 'as another user' do
+          before(:each) do
+            put :update,
+              :user_id => Factory(:user),
+              :id      => @gift,
+              :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+          end
 
-        it 'assigns gift as instance variable' do
-          assigns(:gift).name.should == 'Xbox 360'
-          assigns(:gift).url.should  == 'http://xbox.com'
-        end
+          it 'does not update gift' do
+            saved = Gift.find(@gift)
+            saved.name.should == @gift.name
+            saved.url.should  == @gift.url
+          end
 
-        it 'assigns user as instance variable' do
-          assigns(:user).id.should == @user.id
-        end
-
-        it 'redirects back to user gift list' do
-          response.should redirect_to(user_gifts_path(@user))
+          it 'does not redirect' do
+            response.should_not be_redirect
+          end
         end
       end
 

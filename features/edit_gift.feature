@@ -26,3 +26,10 @@ Feature:
     Then I should be on my gift list
     And I should see 'Your gift has been updated!'
     And I should see 'Xbox 360'
+
+  Scenario: Editing other user's gift lift
+    Given I am logged in
+    And I have a gift saved
+    When I visit another user's gift list
+    Then I should not see 'Edit'
+
