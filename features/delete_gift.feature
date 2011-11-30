@@ -9,6 +9,7 @@ Feature:
     And I am on my gift list
     When I click the link 'Delete'
     Then I should be on my gift list
+    And I should see 'gift has been deleted'
     And I should not see selector '.gift'
 
   Scenario: I am on another user's gift page

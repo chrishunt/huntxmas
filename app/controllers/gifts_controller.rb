@@ -49,7 +49,7 @@ class GiftsController < ApplicationController
     begin
       @user = User.find(params[:user_id])
       Gift.find(params[:id]).destroy
-      redirect_to user_gifts_path(@user)
+      redirect_to user_gifts_path(@user), :notice => 'Your gift has been deleted!'
     rescue ActiveRecord::RecordNotFound
       redirect_to users_path
     end
