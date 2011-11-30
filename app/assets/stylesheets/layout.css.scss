@@ -1,5 +1,8 @@
 $dark-red: #c44032;
 $dark-red-hover: #de4a3a;
+$light-red: #c4756d;
+$light-red-hover: #de4a3a;
+
 $dark-green: #3fa32a;
 $dark-green-hover: #48bd31;
 $light-green: #cdc;
@@ -126,7 +129,7 @@ form {
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
     display: block;
-    padding: 10px 0;
+    padding: 20px 0;
     margin: 10px 0;
     font-weight: bold;
     background: $light-green;
@@ -142,12 +145,21 @@ form {
     margin: 0px;
     float: left;
     a {
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
       color: #fff;
       background: $dark-green;
-      padding: 10px;
+      padding: 5px;
       margin: 0;
       &:hover {
         background: $dark-green-hover;
+      }
+    }
+    .delete {
+      background: $light-red;
+      &:hover {
+        background: $dark-red-hover;
       }
     }
   }
