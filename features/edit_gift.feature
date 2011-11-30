@@ -7,13 +7,13 @@ Feature:
     Given I am logged in
     And I have a gift saved
     When I visit my gift list
-    Then I should see 'edit' within '.gift'
+    Then I should see 'Edit' within '.gift'
 
   Scenario: Edit link works
     Given I am logged in
     And I have a gift saved
     And I am on my gift list
-    When I click the link 'edit'
+    When I click the link 'Edit'
     Then I should be on the gift edit page
 
   Scenario: Edit updates gift in gift list

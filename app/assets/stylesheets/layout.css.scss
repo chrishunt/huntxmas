@@ -1,6 +1,9 @@
 $dark-red: #c44032;
+$dark-red-hover: #de4a3a;
 $dark-green: #3fa32a;
+$dark-green-hover: #48bd31;
 $light-green: #cdc;
+$light-green-hover: #b1c4b1;
 
 * {
   padding: 0;
@@ -94,6 +97,9 @@ form {
     border-radius: 12px;
     -moz-border-radius: 12px;
     -webkit-border-radius: 12px;
+    &:hover {
+      background: $dark-red-hover;
+    }
   }
   li {
     float: left;
@@ -125,5 +131,24 @@ form {
     font-weight: bold;
     background: $light-green;
     text-align: center;
+    &:hover {
+      background: $light-green-hover;
+    }
+  }
+}
+
+#gifts {
+  .actions {
+    margin: 0px;
+    float: left;
+    a {
+      color: #fff;
+      background: $dark-green;
+      padding: 10px;
+      margin: 0;
+      &:hover {
+        background: $dark-green-hover;
+      }
+    }
   }
 }

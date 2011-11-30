@@ -2,5 +2,5 @@
   - @gifts.each do |gift|
     %li.gift
       .actions
-        = link_to 'edit', edit_user_gift_path(:user_id => gift.user, :id => gift)
+        = link_to 'Edit', edit_user_gift_path(:user_id => gift.user, :id => gift)
       = link_to gift.name, gift.url, :target => 'blank'
