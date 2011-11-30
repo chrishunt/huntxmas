@@ -75,6 +75,23 @@ describe UsersController do
       end
     end
 
+    context 'with capitalized email address' do
+      before(:each) do
+        post :create, :user => {
+          :name     => @user.name,
+          :email    => @user.email.upcase,
+          :password => @user.password }
+      end
+
+      it 'converts the email to lowercase before save' do
+        User.first.email.should == @user.email.downcase
+      end
+
+      it 'assigns the user variable with lowercase email' do
+        assigns(:user).email.should == @user.email.downcase
+      end
+    end
+
     context 'with invalid parameters' do
       before(:each) do
         post :create, :user => {:name => nil}

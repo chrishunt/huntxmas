@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.email = @user.email.try(:downcase)
     if @user.save
       redirect_to login_path, :notice => "Account created! You may now login."
     else
