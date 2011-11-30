@@ -1,8 +1,1 @@
-= form_for([@user, @gift]) do |f|
-  .labels
-    = f.label :name
-    = f.label :url
-  .fields
-    = f.text_field :name
-    = f.text_field :url
-  = f.submit 'Add Gift', :class => 'submit'
+= render :partial => 'form', :locals => {:submit_label => 'Add Gift'}

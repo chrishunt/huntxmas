@@ -1,5 +1,15 @@
-Then /^I should see '(.*)'$/ do |text|
+Then /^I should see '([^']*)'$/ do |text|
   page.should have_content(text)
+end
+
+Then /^I should see '(.*)' within '(.*)'$/ do |text, selector|
+  within(selector) do
+    page.should have_content(text)
+  end
+end
+
+Then /^I pause for (\d+) seconds$/ do |seconds|
+  sleep seconds.to_i
 end
 
 Then /^I should not see '(.*)'$/ do |text|

@@ -24,4 +24,24 @@ class GiftsController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+    begin
+      @gift = Gift.find(params[:id])
+      @user = @gift.user
+    rescue ActiveRecord::RecordNotFound
+      redirect_to users_path
+    end
+  end
+
+  def update
+    @gift = Gift.find(params[:id])
+    @user = @gift.user
+    if @gift.update_attributes(params[:gift])
+      redirect_to user_gifts_path(@gift.user), :notice => 'Your gift has been updated!'
+    else
+      flash.now[:error] = 'Both name and url are required!'
+      render 'edit'
+    end
+  end
 end

@@ -25,7 +25,7 @@ describe GiftsController do
 
     describe '#index' do
       before(:each) do
-        @user1 = Factory(:user)
+        @user1 = Factory(:user, :name => 'Bob')
         @user2 = Factory(:user)
         @gift1 = Factory(:gift, :user => @user1)
         @gift2 = Factory(:gift, :user => @user2)
@@ -50,6 +50,10 @@ describe GiftsController do
 
         it 'assigns gift to current user' do
           assigns(:gift).user.should == @user
+        end
+
+        it 'assigns user instance variable' do
+          assigns(:user).should_not be_nil
         end
       end
 
@@ -100,6 +104,88 @@ describe GiftsController do
         end
 
         it 'should not redirect to gift list' do
+          response.should_not be_redirect
+        end
+      end
+    end
+
+    describe '#edit' do
+      before(:each) do
+        @gift = Factory(:gift,
+                        :name => 'Book',
+                        :url  => 'http://books.com',
+                        :user => @user)
+      end
+
+      context 'with valid id' do
+        before(:each) do
+          get :edit, :user_id => @user, :id => @gift
+        end
+
+        it 'assigns gift as instance variable' do
+          assigns(:gift).name.should == @gift.name
+          assigns(:gift).url.should  == @gift.url
+        end
+
+        it 'assigns user as instance variable' do
+          assigns(:user).name.should  == @user.name
+          assigns(:user).email.should == @user.email
+        end
+      end
+
+      context 'with invalid id' do
+        before(:each) do
+          get :edit, :user_id => @user, :id => 100
+        end
+
+        it 'redirects to the user index' do
+          response.should redirect_to(users_path)
+        end
+      end
+    end
+
+    describe '#update' do
+      before(:each) do
+        @gift = Factory(:gift, :user => @user)
+      end
+
+      context 'with valid gift attributes' do
+        before(:each) do
+          put :update,
+            :user_id => @user,
+            :id      => @gift,
+            :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+        end
+
+        it 'updates gift record in database' do
+          saved = Gift.find(@gift)
+          saved.name.should == 'Xbox 360'
+          saved.url.should  == 'http://xbox.com'
+        end
+
+        it 'assigns gift as instance variable' do
+          assigns(:gift).name.should == 'Xbox 360'
+          assigns(:gift).url.should  == 'http://xbox.com'
+        end
+
+        it 'assigns user as instance variable' do
+          assigns(:user).id.should == @user.id
+        end
+
+        it 'redirects back to user gift list' do
+          response.should redirect_to(user_gifts_path(@user))
+        end
+      end
+
+      context 'with invalid gift attributes' do
+        before(:each) do
+          put :update,
+            :user_id => @user,
+            :id      => @gift,
+            :gift    => { :name => nil, :url => @gift.url }
+        end
+
+        it 'does not redirect' do
           response.should_not be_redirect
         end
       end
