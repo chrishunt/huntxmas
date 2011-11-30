@@ -3,5 +3,9 @@
     %li.gift
       - if current_user == gift.user
         .actions
-          = link_to 'Edit', edit_user_gift_path(:user_id => gift.user, :id => gift)
+          = link_to 'Edit',
+              edit_user_gift_path(:user_id => gift.user, :id => gift)
+          = link_to 'Delete',
+              user_gift_path(:user_id => gift.user, :id => gift),
+              :method => :delete
       = link_to gift.name, gift.url, :target => 'blank'

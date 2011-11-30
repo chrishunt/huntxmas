@@ -44,4 +44,14 @@ class GiftsController < ApplicationController
       render 'edit'
     end
   end
+
+  def destroy
+    begin
+      @user = User.find(params[:user_id])
+      Gift.find(params[:id]).destroy
+      redirect_to user_gifts_path(@user)
+    rescue ActiveRecord::RecordNotFound
+      redirect_to users_path
+    end
+  end
 end

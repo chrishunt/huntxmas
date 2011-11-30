@@ -211,5 +211,44 @@ describe GiftsController do
         end
       end
     end
+
+    describe '#destroy' do
+      before(:each) do
+        @gift = Factory(:gift, :user => @user)
+        Gift.all.count.should == 1
+      end
+
+      context 'with valid gift id' do
+        before(:each) do
+          delete :destroy, :user_id => @user, :id => @gift
+        end
+
+        it 'deletes the gift from the database' do
+          Gift.all.count.should == 0
+        end
+
+        it 'does not assign gift item' do
+          assigns(:gift).should be_nil
+        end
+
+        it 'redirects to the gift list' do
+          response.should redirect_to(user_gifts_path(@user))
+        end
+      end
+
+      context 'with invalid gift id' do
+        before(:each) do
+          delete :destroy, :user_id => @user, :id => @gift.id + 1
+        end
+
+        it 'should not delete a gift' do
+          Gift.all.count.should == 1
+        end
+
+        it 'should redirect to users page' do
+          response.should redirect_to users_path
+        end
+      end
+    end
   end
 end

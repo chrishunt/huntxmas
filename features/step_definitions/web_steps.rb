@@ -20,6 +20,10 @@ Then /^I should see selector '(.*)'$/ do |selector|
   page.should have_selector(selector)
 end
 
+Then /^I should not see selector '(.*)'$/ do |selector|
+  page.should_not have_selector(selector)
+end
+
 When /^I fill in '(.*)' with '(.*)'$/ do |id, text|
   fill_in id, :with => text
 end
