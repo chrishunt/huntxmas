@@ -20,6 +20,13 @@ describe SessionsController do
         session[:user_id].should == nil
       end
     end
+
+    context 'when capitalizing the email' do
+      it 'saves the user_id in the session' do
+        post :create, :email => @user.email.upcase, :password => @user.password
+        session[:user_id].should == @user.id
+      end
+    end
   end
 
   describe '#destroy' do
