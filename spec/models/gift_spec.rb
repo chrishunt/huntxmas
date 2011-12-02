@@ -9,7 +9,7 @@ describe Gift do
     @gift.save.should == true
     saved_gift = Gift.first
     saved_gift.name.should == @gift.name
-    saved_gift.url.should == @gift.url
+    saved_gift.url.should  == @gift.url
     saved_gift.user.should == @gift.user
   end
 
@@ -18,7 +18,7 @@ describe Gift do
     @gift.save.should == false
   end
 
-  it 'validates precense of url' do
+  it 'validates presence of url' do
     @gift.url = nil
     @gift.save.should == false
   end
