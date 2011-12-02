@@ -6,12 +6,24 @@ Given /^I have a gift saved$/ do
   gift
 end
 
+Given /^another user has a gift saved$/ do
+  another_gift
+end
+
 Given /^I am on the gift edit page$/ do
   visit edit_user_gift_path(user, gift)
 end
 
 Given /^I am on my gift list$/ do
   visit user_gifts_path(user)
+end
+
+Given /^I have marked another user's gift as purchased$/ do
+  user.purchase(another_gift)
+end
+
+Given /^another user has marked one of my gifts as purchased$/ do
+  another_user.purchase(gift)
 end
 
 ########
@@ -23,8 +35,6 @@ When /^I visit my gift list$/ do
 end
 
 When /^I visit another user's gift list$/ do
-  another_user = Factory(:user)
-  Factory(:gift, :user => another_user)
   visit user_gifts_path(another_user)
 end
 
