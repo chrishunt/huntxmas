@@ -3,9 +3,9 @@ require 'spec_helper.rb'
 describe UsersController do
   describe '#index' do
     before(:each) do
-      @user1 = Factory(:user)
-      @user2 = Factory(:user)
-      @users = [@user1, @user2]
+      @user1 = Factory(:user, :name => 'Sam')
+      @user2 = Factory(:user, :name => 'Bob')
+      @users = [@user2, @user1]
     end
 
     context 'when logged in' do
@@ -14,7 +14,7 @@ describe UsersController do
         get :index
       end
 
-      it 'returns list of all users' do
+      it 'returns list of all users, sorted by name' do
         assigns(:users).should == @users
       end
     end
