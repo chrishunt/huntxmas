@@ -54,4 +54,15 @@ class GiftsController < ApplicationController
       redirect_to users_path
     end
   end
+
+  def purchase
+    begin
+      @user = User.find(params[:user_id])
+      @gift = Gift.find(params[:id])
+      current_user.purchase(@gift)
+      redirect_to user_gifts_path(@user), :notice => 'Gift has been marked as purchased!'
+    rescue ActiveRecord::RecordNotFound
+      redirect_to users_path
+    end
+  end
 end

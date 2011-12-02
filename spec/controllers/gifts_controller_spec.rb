@@ -250,5 +250,63 @@ describe GiftsController do
         end
       end
     end
+
+    describe '#purchase' do
+      before(:each) do
+        @gift = Factory(:gift, :user => @user)
+      end
+
+      context 'with an invalid gift id' do
+        before(:each) do
+          get :purchase, :user_id => @user.id, :id => 100
+        end
+
+        it 'redirects to users index' do
+          response.should redirect_to(users_path)
+        end
+      end
+
+      context 'as another user' do
+        before(:each) do
+          another_user = Factory(:user)
+          session[:user_id] = another_user.id
+          get :purchase, :user_id => @user.id, :id => @gift.id
+        end
+
+        it 'assigns the correct gift' do
+          assigns(:gift).should == @gift
+        end
+
+        it 'marks the gift as purchased' do
+          assigns(:gift).purchased?.should == true
+        end
+
+        it 'assigns the currently logged in user as the purchaser' do
+          assigns(:gift).purchased_by_user_id.should == session[:user_id]
+        end
+
+        it "redirects to the gift owner's list" do
+          response.should redirect_to(user_gifts_path(@gift.user))
+        end
+      end
+
+      context 'as the gift creater' do
+        before(:each) do
+          get :purchase, :user_id => @user.id, :id => @gift.id
+        end
+
+        it 'assigns the correct gift' do
+          assigns(:gift).should == @gift
+        end
+
+        it 'does not mark the gift as purchased' do
+          assigns(:gift).purchased?.should == false
+        end
+
+        it "redirects to the gift owner's list" do
+          response.should redirect_to(user_gifts_path(@gift.user))
+        end
+      end
+    end
   end
 end
