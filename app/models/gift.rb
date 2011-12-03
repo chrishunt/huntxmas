@@ -11,7 +11,8 @@ class Gift < ActiveRecord::Base
   end
 
   def return!
-    self.update_attributes(:purchased_by_user_id => nil)
+    self.purchased_by_user_id = nil
+    save
   end
 
   def purchased?
