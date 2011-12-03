@@ -14,3 +14,6 @@ def another_gift
   @another_gift ||= Factory(:gift, :name => "Book", :user => another_user)
 end
 
+def third_user
+  @third_user ||= Factory(:user, :name => "Mom")
+end

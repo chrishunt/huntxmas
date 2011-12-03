@@ -9,4 +9,12 @@
               user_gift_path(:user_id => gift.user, :id => gift),
               :method => :delete,
               :class  => 'delete'
+      - else
+        .actions
+          - if gift.purchased?
+            = link_to 'Unmark as Purchased',
+                return_user_gift_path(:user_id => gift.user, :id => gift)
+          - else
+            = link_to 'Mark as Purchased',
+                purchase_user_gift_path(:user_id => gift.user, :id => gift)
       = link_to gift.name, gift.url, :target => 'blank'

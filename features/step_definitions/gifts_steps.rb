@@ -22,6 +22,10 @@ Given /^I have marked another user's gift as purchased$/ do
   user.purchase(another_gift)
 end
 
+Given /^a third user has marked another gift as purchased$/ do
+  third_user.purchase(another_gift)
+end
+
 Given /^another user has marked one of my gifts as purchased$/ do
   another_user.purchase(gift)
 end
