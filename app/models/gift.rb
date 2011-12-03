@@ -6,7 +6,8 @@ class Gift < ActiveRecord::Base
   validates :url,  :presence => true
 
   def sell!(user)
-    self.update_attributes(:purchased_by_user_id => user.id) unless self.user == user
+    self.purchased_by_user_id = user.id unless self.user == user
+    save
   end
 
   def return!
