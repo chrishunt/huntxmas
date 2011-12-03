@@ -27,14 +27,14 @@ describe GiftsController do
       before(:each) do
         @user1 = Factory(:user, :name => 'Bob')
         @user2 = Factory(:user)
-        @gift1 = Factory(:gift, :user => @user1)
-        @gift2 = Factory(:gift, :user => @user2)
-        @gift3 = Factory(:gift, :user => @user1)
+        @gift1 = Factory(:gift, :name => 'Video Game', :user => @user1)
+        @gift2 = Factory(:gift, :name => 'Doll',       :user => @user2)
+        @gift3 = Factory(:gift, :name => 'Computer',   :user => @user1)
         get :index, :user_id => @user1
       end
 
-      it "returns list of all user's gifts" do
-        assigns(:gifts).should == [@gift1, @gift3]
+      it "returns list of all user's gifts in alphabetic order" do
+        assigns(:gifts).should == [@gift3, @gift1]
       end
     end
 

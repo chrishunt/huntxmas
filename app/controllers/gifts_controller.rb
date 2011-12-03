@@ -2,7 +2,7 @@ class GiftsController < ApplicationController
   before_filter :authenticate
 
   def index
-    @gifts = Gift.where('user_id = ?', params[:user_id])
+    @gifts = Gift.where('user_id = ?', params[:user_id]).order(:name)
   end
 
   def new
