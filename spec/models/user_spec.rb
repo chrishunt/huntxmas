@@ -78,4 +78,55 @@ describe User do
       end
     end
   end
+
+  describe '#return' do
+    before(:each) do
+      @user = Factory(:user)
+      @gift = Factory(:gift)
+    end
+
+    context 'when purchased by this user' do
+      before(:each) do
+        @user.purchase(@gift)
+        @return = @user.return(@gift)
+      end
+
+      it 'sets the gift to an unpurchased state' do
+        @gift.purchased?.should == false
+      end
+
+      it 'returns true' do
+        @return.should == true
+      end
+    end
+
+    context 'when purchased by another user' do
+      before(:each) do
+        Factory(:user).purchase(@gift)
+        @return = @user.return(@gift)
+      end
+
+      it 'leaves the gift in a purchased state' do
+        @gift.purchased?.should == true
+      end
+
+      it 'returns false' do
+        @return.should == false
+      end
+    end
+
+    context 'when not already purchased' do
+      before(:each) do
+        @return = @user.return(@gift)
+      end
+
+      it 'leaves the gift in an unpurchased state' do
+        @gift.purchased?.should == false
+      end
+
+      it 'returns false' do
+        @return.should == false
+      end
+    end
+  end
 end

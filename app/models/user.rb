@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
   validates :password, :presence => { :on => :create }
 
   def purchase(gift)
-    gift.update_attributes(:purchased_by_user_id => self.id) unless gift.user == self
+    gift.sell!(self)
+  end
+
+  def return(gift)
+    purchased_by = gift.purchased_by?(self)
+    gift.return! if purchased_by
+    return purchased_by
   end
 end
