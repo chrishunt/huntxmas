@@ -65,4 +65,19 @@ class GiftsController < ApplicationController
       redirect_to users_path
     end
   end
+
+  def return
+    begin
+      @user = User.find(params[:user_id])
+      @gift = Gift.find(params[:id])
+      if current_user.return(@gift)
+        flash[:notice] = 'Gift is no longer marked as purchased!'
+      else
+        flash[:error] = 'Sorry. You cannot unmark gifts that you did not purchase!'
+      end
+      redirect_to user_gifts_path(@user)
+    rescue ActiveRecord::RecordNotFound
+      redirect_to users_path
+    end
+  end
 end

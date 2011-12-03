@@ -308,5 +308,52 @@ describe GiftsController do
         end
       end
     end
+
+    describe '#return' do
+      before(:each) do
+        @gift = Factory(:gift, :user => Factory(:user))
+      end
+
+      context 'when the gift has been purchased by the current user' do
+        before(:each) do
+          @user.purchase(@gift)
+          get :return, :user_id => @gift.user, :id => @gift
+        end
+
+        it 'returns the gift to an unpurchased state' do
+          assigns(:gift).purchased?.should == false
+        end
+
+        it "redirects to the gift owner's gift list" do
+          response.should redirect_to(user_gifts_path(@gift.user))
+        end
+      end
+
+      context 'when the gift has been purchased by a different user' do
+        before(:each) do
+          @another_user = Factory(:user)
+          @another_user.purchase(@gift)
+          get :return, :user_id => @gift.user, :id => @gift
+        end
+
+        it 'leaves the gift in a purchased state' do
+          assigns(:gift).purchased?.should == true
+        end
+
+        it "redirects to the gift owner's gift list" do
+          response.should redirect_to(user_gifts_path(@gift.user))
+        end
+      end
+
+      context 'with an invalid gift id' do
+        before(:each) do
+          get :return, :user_id => @gift.user, :id => 100
+        end
+
+        it 'redirects to the users path' do
+          response.should redirect_to(users_path)
+        end
+      end
+    end
   end
 end

@@ -6,6 +6,7 @@ Xmaslist::Application.routes.draw do
   end
 
   get 'users/:user_id/gifts/:id/purchase' => 'gifts#purchase', :as => :purchase_user_gift
+  get 'users/:user_id/gifts/:id/return'   => 'gifts#return',   :as => :return_user_gift
 
   match 'login'  => 'sessions#new'
   match 'logout' => 'sessions#destroy'
