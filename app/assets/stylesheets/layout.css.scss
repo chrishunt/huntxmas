@@ -62,8 +62,11 @@ form {
   }
 }
 
-#flash-messages {
+#flash-messages, #validation-messages {
   margin-bottom: 15px;
+}
+
+#flash-messages {
   li {
     background-color: #ddd;
     border-radius: 10px;
@@ -81,6 +84,20 @@ form {
   .error {
     color: #fff;
     background: $dark-red;
+  }
+}
+
+#validation-messages {
+  background: $light-red;
+  color: #fff;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  padding: 10px 0;
+  li {
+    text-align: center;
+    font-weight: bold;
+    font-size: 120%;
   }
 }
 

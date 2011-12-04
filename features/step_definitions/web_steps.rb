@@ -2,6 +2,10 @@ Then /^I should see '([^']*)'$/ do |text|
   page.should have_content(text)
 end
 
+Then /^I should see "([^"]*)"$/ do |text|
+  page.should have_content(text)
+end
+
 Then /^I should see '(.*)' within '(.*)'$/ do |text, selector|
   within(selector) do
     page.should have_content(text)
@@ -13,6 +17,10 @@ Then /^I pause for (\d+) seconds$/ do |seconds|
 end
 
 Then /^I should not see '(.*)'$/ do |text|
+  page.should_not have_content(text)
+end
+
+Then /^I should not see "(.*)"$/ do |text|
   page.should_not have_content(text)
 end
 
