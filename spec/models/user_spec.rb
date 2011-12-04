@@ -3,29 +3,35 @@ require 'spec_helper.rb'
 describe User do
   describe 'validations' do
     before(:each) do
-      @user = Factory.build(:user)
+      @user = Factory.build(:user, :email => 'user@email.com')
+    end
+
+    it 'has no errors when all validations are met' do
+      @user.save.should == true
+      @user.errors.size.should == 0
     end
 
     it 'saves when all validations are met' do
       @user.save.should == true
       saved_user = User.first
-      saved_user.name.should == @user.name
+      saved_user.name.should  == @user.name
       saved_user.email.should == @user.email
     end
 
     it 'requires presence of name' do
       @user.name = nil
       @user.save.should == false
+      @user.errors.size.should == 1
     end
 
     it 'requires presence of email' do
       @user.email = nil
       @user.save.should == false
+      @user.errors.size.should == 1
     end
 
     it 'requires unique email address' do
-      user1 = Factory.build(:user, :email => 'user@email.com')
-      user1.save.should == true
+      @user.save.should == true
       user2 = Factory.build(:user, :email => 'user@email.com')
       user2.save.should == false
     end
@@ -33,6 +39,7 @@ describe User do
     it 'requires presence of password' do
       @user.password = nil
       @user.save.should == false
+      @user.errors.size.should == 1
     end
 
     it 'has many gifts' do
