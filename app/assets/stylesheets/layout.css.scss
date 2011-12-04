@@ -140,6 +140,13 @@ form {
   }
 }
 
+#snowman {
+  z-index: -999;
+  position: fixed;
+  left: -15px;
+  bottom: -10px;
+}
+
 #content {
   li a {
     border-radius: 12px;
