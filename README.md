@@ -1,3 +1,5 @@
+![Build Status](https://secure.travis-ci.org/huntca/huntxmas.png)
+
 Hunt Family Christmas List
 ==========================
-![screenshot](https://raw.github.com/huntca/huntxmas/master/screenshot.png)
+![Screenshot](https://raw.github.com/huntca/huntxmas/master/screenshot.png)
