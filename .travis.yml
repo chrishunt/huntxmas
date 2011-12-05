@@ -3,4 +3,4 @@ rvm:
   - 1.9.2
   - 1.9.3
 
-script: "bundle exec rake db:setup default"
+script: "bundle exec rake db:setup default RAILS_ENV=test"
