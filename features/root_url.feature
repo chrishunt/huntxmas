@@ -1,4 +1,4 @@
-Feature:
+Feature: Root url for xmas list
   In order to start buying my family gifts
   As a user
   I want to see the user list at the application root

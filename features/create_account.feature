@@ -1,4 +1,4 @@
-Feature:
+Feature: Create a new account
   In order to have my own list of gifts
   As a User
   I want to be able to create a user account

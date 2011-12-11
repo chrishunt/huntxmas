@@ -1,4 +1,4 @@
-Feature:
+Feature: Logout of gift list
   In order to prevent others from modifying my gift list
   As a user
   I want to be able to logout
