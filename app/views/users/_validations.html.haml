@@ -1,0 +1,4 @@
+- if @user.errors.size > 0
+  %ul#validation-messages
+    - @user.errors.full_messages.reject { |m| m.include? 'digest' }.each do |m|
+      %li= m

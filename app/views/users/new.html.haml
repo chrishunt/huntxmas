@@ -1,15 +1,2 @@
-- if @user.errors.size > 0
-  %ul#validation-messages
-    - @user.errors.full_messages.reject { |m| m.include? 'digest' }.each do |m|
-      %li= m
-
-= form_for @user do |f|
-  .labels
-    = f.label :name
-    = f.label :email
-    = f.label :password
-  .fields
-    = f.text_field :name
-    = f.text_field :email
-    = f.password_field :password
-  = f.submit 'Create Account', :class => 'submit'
+= render :partial => 'validations'
+= render :partial => 'form', :locals => { :submit_text => 'Create Account' }

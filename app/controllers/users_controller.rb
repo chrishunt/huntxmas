@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => :index
+  before_filter :authenticate, :only => [:index, :edit, :update]
 
   def index
     @users = User.order(:name)
@@ -17,6 +17,23 @@ class UsersController < ApplicationController
     else
       flash.now[:error] = "Sorry! There were errors creating your account."
       render 'new'
+    end
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    attrs = params[:user]
+    attrs[:email] = attrs[:email].downcase if attrs[:email]
+    @user = current_user
+    if @user.update_attributes attrs
+      redirect_to user_gifts_path(@user),
+        :notice => "Your account details have been updated!"
+    else
+      flash.now[:error] = "Sorry! There were errors updating your account."
+      render 'edit'
     end
   end
 end
