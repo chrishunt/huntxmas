@@ -19,7 +19,7 @@
         #current-user
           - if current_user
             = "Logged in as "
-            = link_to current_user.name, edit_user_path(current_user)
+            %span= link_to current_user.name, edit_user_path(current_user)
             = link_to 'Logout', logout_path
           - else
             = link_to 'Login', login_path
