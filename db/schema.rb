@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20111202045906) do
   create_table "gifts", :force => true do |t|
     t.string   "name"
     t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
     t.integer  "user_id"
     t.integer  "purchased_by_user_id"
   end
@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20111202045906) do
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end
