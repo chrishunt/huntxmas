@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 describe Gift do
   describe 'validations' do
     before(:each) do
-      @gift = Factory.build(:gift)
+      @gift = FactoryGirl.build(:gift)
     end
 
     it 'saves a gift when all validations are passing' do
@@ -32,13 +32,13 @@ describe Gift do
 
   describe '#sell!' do
     before(:each) do
-      @creator      = Factory(:user)
-      @another_user = Factory(:user)
+      @creator      = FactoryGirl.create(:user)
+      @another_user = FactoryGirl.create(:user)
     end
 
     context 'when purchased by another user' do
       before(:each) do
-        gift = Factory(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, :user => @creator)
         gift.sell!(@another_user)
         @gift = Gift.find(gift)
       end
@@ -50,7 +50,7 @@ describe Gift do
 
     context 'when purchased by the gift creater' do
       before(:each) do
-        gift = Factory(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, :user => @creator)
         gift.sell!(@creator)
         @gift = Gift.find(gift)
       end
@@ -63,7 +63,7 @@ describe Gift do
 
   describe '#purchased?' do
     before(:each) do
-      @gift = Factory(:gift)
+      @gift = FactoryGirl.create(:gift)
     end
 
     it 'returns true when the gift has been purchased' do
@@ -79,8 +79,8 @@ describe Gift do
 
   describe '#purchased_by?' do
     before(:each) do
-      @gift = Factory(:gift)
-      @user = Factory(:user)
+      @gift = FactoryGirl.create(:gift)
+      @user = FactoryGirl.create(:user)
       @user.purchase(@gift)
     end
 
@@ -89,13 +89,13 @@ describe Gift do
     end
 
     it 'returns false if the gift was not purchased by the user' do
-      @gift.purchased_by?(Factory(:user)).should == false
+      @gift.purchased_by?(FactoryGirl.create(:user)).should == false
     end
   end
 
   describe '#return!' do
     before(:each) do
-      gift = Factory(:gift, :purchased_by_user_id => 1)
+      gift = FactoryGirl.create(:gift, :purchased_by_user_id => 1)
       gift.return!
       @gift = Gift.find(gift)
     end
@@ -107,12 +107,12 @@ describe Gift do
 
   describe '#purchaser' do
     before(:each) do
-      @gift = Factory(:gift)
+      @gift = FactoryGirl.create(:gift)
     end
 
     context 'when gift is purchased' do
       before(:each) do
-        @user = Factory(:user)
+        @user = FactoryGirl.create(:user)
         @user.purchase(@gift)
       end
 

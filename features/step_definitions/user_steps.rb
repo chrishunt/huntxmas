@@ -12,9 +12,9 @@ end
 
 Given /^there are (\d+) test users created$/ do |num|
   (0..num.to_i).each do |n|
-    Factory(:user,
-            :name     => "Test User #{n}",
-            :email    => "test_user#{n}@domain.com",
-            :password => "secret")
+    FactoryGirl.create(:user,
+      :name     => "Test User #{n}",
+      :email    => "test_user#{n}@domain.com",
+      :password => "secret")
   end
 end

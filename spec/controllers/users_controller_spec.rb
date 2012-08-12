@@ -3,8 +3,8 @@ require 'spec_helper.rb'
 describe UsersController do
   describe '#index' do
     before(:each) do
-      @user1 = Factory(:user, :name => 'Sam')
-      @user2 = Factory(:user, :name => 'Bob')
+      @user1 = FactoryGirl.create(:user, :name => 'Sam')
+      @user2 = FactoryGirl.create(:user, :name => 'Bob')
       @users = [@user2, @user1]
     end
 
@@ -36,7 +36,7 @@ describe UsersController do
 
   describe '#new' do
     before(:each) do
-      @user = Factory.build(:user)
+      @user = FactoryGirl.build(:user)
       User.stub!(:new).and_return(@user)
       get :new
     end
@@ -48,7 +48,7 @@ describe UsersController do
 
   describe '#edit' do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     context 'when logged in' do
@@ -69,7 +69,7 @@ describe UsersController do
 
       context 'and passing a different user id' do
         before(:each) do
-          another_user = Factory(:user)
+          another_user = FactoryGirl.create(:user)
           get :edit, :id => another_user.id
         end
 
@@ -104,7 +104,7 @@ describe UsersController do
 
   describe '#create' do
     before(:each) do
-      @user = Factory.build(:user)
+      @user = FactoryGirl.build(:user)
       User.all.count.should == 0
     end
 
@@ -165,7 +165,7 @@ describe UsersController do
 
   describe '#update' do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       @attributes = {
         :name     => 'Bob',
         :email    => 'bob@example.com',
@@ -231,7 +231,7 @@ describe UsersController do
 
       context 'and updating another user' do
         before(:each) do
-          @another_user = Factory(:user)
+          @another_user = FactoryGirl.create(:user)
           post :update, :id => @another_user, :user => @attributes
         end
 

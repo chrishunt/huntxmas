@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 describe SessionsController do
   describe '#create' do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       session[:user_id].should == nil
     end
 
@@ -31,7 +31,7 @@ describe SessionsController do
 
   describe '#destroy' do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     context 'when already logged in' do

@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 describe User do
   describe 'validations' do
     before(:each) do
-      @user = Factory.build(:user, :email => 'user@email.com')
+      @user = FactoryGirl.build(:user, :email => 'user@email.com')
     end
 
     it 'has no errors when all validations are met' do
@@ -32,7 +32,7 @@ describe User do
 
     it 'requires unique email address' do
       @user.save.should == true
-      user2 = Factory.build(:user, :email => 'user@email.com')
+      user2 = FactoryGirl.build(:user, :email => 'user@email.com')
       user2.save.should == false
     end
 
@@ -49,13 +49,13 @@ describe User do
 
   describe '#purchase' do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     context 'when gift is owned by another user' do
       before(:each) do
-        @another_user = Factory(:user)
-        @gift = Factory(:gift, :user => @another_user)
+        @another_user = FactoryGirl.create(:user)
+        @gift = FactoryGirl.create(:gift, :user => @another_user)
         @user.purchase(@gift)
         @gift = Gift.find(@gift)
       end
@@ -71,7 +71,7 @@ describe User do
 
     context 'when gift is owned by the same user' do
       before(:each) do
-        @gift = Factory(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, :user => @user)
         @user.purchase(@gift)
         @gift = Gift.find(@gift)
       end
@@ -88,8 +88,8 @@ describe User do
 
   describe '#return' do
     before(:each) do
-      @user = Factory(:user)
-      @gift = Factory(:gift)
+      @user = FactoryGirl.create(:user)
+      @gift = FactoryGirl.create(:gift)
     end
 
     context 'when purchased by this user' do
@@ -109,7 +109,7 @@ describe User do
 
     context 'when purchased by another user' do
       before(:each) do
-        Factory(:user).purchase(@gift)
+        FactoryGirl.create(:user).purchase(@gift)
         @return = @user.return(@gift)
       end
 

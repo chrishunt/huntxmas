@@ -2,7 +2,7 @@ require 'spec_helper.rb'
 
 describe GiftsController do
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create(:user)
   end
 
   context 'when not logged in' do
@@ -25,11 +25,14 @@ describe GiftsController do
 
     describe '#index' do
       before(:each) do
-        @user1 = Factory(:user, :name => 'Bob')
-        @user2 = Factory(:user)
-        @gift1 = Factory(:gift, :name => 'Video Game', :user => @user1)
-        @gift2 = Factory(:gift, :name => 'Doll',       :user => @user2)
-        @gift3 = Factory(:gift, :name => 'Computer',   :user => @user1)
+        @user1 = FactoryGirl.create(:user, :name => 'Bob')
+        @user2 = FactoryGirl.create(:user)
+        @gift1 = FactoryGirl.create(:gift,
+          :name => 'Video Game',:user => @user1)
+        @gift2 = FactoryGirl.create(:gift,
+          :name => 'Doll',       :user => @user2)
+        @gift3 = FactoryGirl.create(:gift,
+          :name => 'Computer',   :user => @user1)
         get :index, :user_id => @user1
       end
 
@@ -75,7 +78,7 @@ describe GiftsController do
     describe '#create' do
       before(:each) do
         Gift.all.size.should == 0
-        @gift = Factory.build(:gift, :user => @user)
+        @gift = FactoryGirl.build(:gift, :user => @user)
       end
 
       context 'with valid gift attributes' do
@@ -111,7 +114,7 @@ describe GiftsController do
 
     describe '#edit' do
       before(:each) do
-        @gift = Factory(:gift,
+        @gift = FactoryGirl.create(:gift,
                         :name => 'Book',
                         :url  => 'http://books.com',
                         :user => @user)
@@ -146,7 +149,7 @@ describe GiftsController do
 
     describe '#update' do
       before(:each) do
-        @gift = Factory(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, :user => @user)
       end
 
       context 'with valid gift attributes' do
@@ -181,7 +184,7 @@ describe GiftsController do
         context 'as another user' do
           before(:each) do
             put :update,
-              :user_id => Factory(:user),
+              :user_id => FactoryGirl.create(:user),
               :id      => @gift,
               :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
           end
@@ -214,7 +217,7 @@ describe GiftsController do
 
     describe '#destroy' do
       before(:each) do
-        @gift = Factory(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, :user => @user)
         Gift.all.count.should == 1
       end
 
@@ -253,7 +256,7 @@ describe GiftsController do
 
     describe '#purchase' do
       before(:each) do
-        @gift = Factory(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, :user => @user)
       end
 
       context 'with an invalid gift id' do
@@ -268,7 +271,7 @@ describe GiftsController do
 
       context 'as another user' do
         before(:each) do
-          another_user = Factory(:user)
+          another_user = FactoryGirl.create(:user)
           session[:user_id] = another_user.id
           get :purchase, :user_id => @user.id, :id => @gift.id
         end
@@ -311,7 +314,7 @@ describe GiftsController do
 
     describe '#return' do
       before(:each) do
-        @gift = Factory(:gift, :user => Factory(:user))
+        @gift = FactoryGirl.create(:gift, :user => FactoryGirl.create(:user))
       end
 
       context 'when the gift has been purchased by the current user' do
@@ -331,7 +334,7 @@ describe GiftsController do
 
       context 'when the gift has been purchased by a different user' do
         before(:each) do
-          @another_user = Factory(:user)
+          @another_user = FactoryGirl.create(:user)
           @another_user.purchase(@gift)
           get :return, :user_id => @gift.user, :id => @gift
         end
