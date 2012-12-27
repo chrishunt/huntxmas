@@ -82,20 +82,24 @@ describe GiftsController do
       end
 
       context 'with valid gift attributes' do
-        before(:each) do
-          post :create, :user_id => @user, :gift => @gift.attributes
-        end
-
         it 'saves gift in database' do
+          post :create, :user_id => @user, :gift => @gift.attributes
           Gift.all.size.should == 1
         end
 
         it 'assigns gift as instance variable' do
+          post :create, :user_id => @user, :gift => @gift.attributes
           assigns(:gift).name.should == @gift.name
           assigns(:gift).url.should == @gift.url
         end
 
+        it 'notifies users that gift was added' do
+          controller.should_receive(:send_notifications_for).with(@user)
+          post :create, :user_id => @user, :gift => @gift.attributes
+        end
+
         it 'redirects back to user gift list' do
+          post :create, :user_id => @user, :gift => @gift.attributes
           response.should redirect_to(user_gifts_path(@user))
         end
       end
