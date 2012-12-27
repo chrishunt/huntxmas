@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, :uniqueness => true
   validates :password, :presence => true
 
+  scope :with_email_notifications, where(email_notifications: true)
+
   def purchase(gift)
     gift.sell!(self)
   end
