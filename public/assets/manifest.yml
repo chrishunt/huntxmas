@@ -1,9 +1,17 @@
 ---
-cart_large.png: cart_large-662f30b5805236032eee56ab83d45f50.png
-purchase_small.png: purchase_small-06b382bea88c3fed009266d54505f072.png
-purchase_small_hover.png: purchase_small_hover-16bf98cccb9a1c3794d7b3bc583aa404.png
-return_small.png: return_small-04c56289a19e7e85074cf75d7ce9ff75.png
-return_small_hover.png: return_small_hover-0dfe9a18eb173d49615f8d52bcbfcfbe.png
-snowman.png: snowman-d6dd1c0f428a7de57e6f316dbf6a389b.png
-application.js: application-795594bda338bbc7b5aeb71bdba45db3.js
-application.css: application-1d970a37b4d0311019e40a012e70c1c3.css
+cart_large.png: cart_large-d95749f3ccc7fffefbd37e506a3275c1.png
+cart_large/index.png: cart_large-d95749f3ccc7fffefbd37e506a3275c1.png
+purchase_small.png: purchase_small-183beac6f372eca4631cabd4dbbb2e6c.png
+purchase_small/index.png: purchase_small-183beac6f372eca4631cabd4dbbb2e6c.png
+purchase_small_hover.png: purchase_small_hover-75ad208d852bd0a38bd8a58314794f37.png
+purchase_small_hover/index.png: purchase_small_hover-75ad208d852bd0a38bd8a58314794f37.png
+return_small.png: return_small-bd6f702bef95cf5220d3e649d6ad71b2.png
+return_small/index.png: return_small-bd6f702bef95cf5220d3e649d6ad71b2.png
+return_small_hover.png: return_small_hover-270b0067156a52884b8a77f07de22222.png
+return_small_hover/index.png: return_small_hover-270b0067156a52884b8a77f07de22222.png
+snowman.png: snowman-7873d3c47c724eb9abe07f416c851c7c.png
+snowman/index.png: snowman-7873d3c47c724eb9abe07f416c851c7c.png
+application.js: application-d20ce3cbd2f13909ad4905353b848b89.js
+application/index.js: application-d20ce3cbd2f13909ad4905353b848b89.js
+application.css: application-518f936f42b7542418df6981973c5380.css
+application/index.css: application-518f936f42b7542418df6981973c5380.css
