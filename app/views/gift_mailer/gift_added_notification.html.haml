@@ -1,31 +1,23 @@
 %html
   %head
-    = stylesheet_link_tag 'http://fonts.googleapis.com/css?family=Donegal+One'
     %title
       = "#{@from.name} added a new Christmas gift"
-    :css
-      body {
-        font-family: 'Donegal One', serif;
-        background: #efe;
-      }
-      a {
-        color: #3FA32A;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      a:hover {
-        color: #48bd31;
-      }
-  %body
+  %body{ style: "background: #efe;" }
     %p
       = "Hi #{@to.name},"
     %p
-      = link_to @from.name, user_gifts_url(@from)
+      = link_to @from.name,
+        user_gifts_url(@from),
+        style: "color: #3FA32A; text-decoration: none; font-weight: bold;"
       = "just added"
-      = link_to @gift.name, @gift.url
+      = link_to @gift.name,
+        @gift.url,
+        style: "color: #3FA32A; text-decoration: none; font-weight: bold;"
       = "to the Christmas list."
     %p
       = "Love,"
-      = link_to 'huntxmas.com', root_url
+      = link_to 'huntxmas.com',
+        root_url,
+        style: "color: #3FA32A; text-decoration: none; font-weight: bold;"
     %p
       = image_tag attachments['snowman.png'].url
