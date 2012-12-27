@@ -9,6 +9,12 @@ Feature: Viewing gift list
     When I visit my gift list
     Then I should see selector '#gifts'
     And I should see selector '.gift'
+    And I should not see 'has not added any gifts'
+
+  Scenario: When there are no gifts
+    Given I am logged in
+    When I visit my gift list
+    Then I should see 'has not added any gifts'
 
   Scenario: Clicking my gift list link
     Given I am logged in

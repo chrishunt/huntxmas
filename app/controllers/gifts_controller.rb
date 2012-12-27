@@ -2,7 +2,9 @@ class GiftsController < ApplicationController
   before_filter :authenticate
 
   def index
-    @gifts = Gift.where('user_id = ?', params[:user_id]).order(:name)
+    user = User.find(params[:user_id])
+    @gifts = Gift.where('user_id = ?', user.id).order(:name)
+    flash.now[:warning] = "#{user.name} has not added any gifts" if @gifts.empty?
   end
 
   def new
