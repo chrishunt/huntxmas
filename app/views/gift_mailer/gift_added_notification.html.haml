@@ -4,8 +4,9 @@
     %title
       = "#{@from.name} added a new Christmas gift"
     :css
-      html {
+      body {
         font-family: 'Donegal One', serif;
+        background: #efe;
       }
       a {
         color: #3FA32A;
@@ -26,3 +27,5 @@
     %p
       = "Love,"
       = link_to 'huntxmas.com', root_url
+    %p
+      = image_tag attachments['snowman.png'].url
