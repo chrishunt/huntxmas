@@ -1,12 +1,11 @@
-%p="Hi #{@to.name},"
+%p= "Hi #{@to.name},"
 
 %p
-  ="#{link_to @from.name, @from}".html_safe
-  ="just added"
-  ="#{link_to @gift.name, @from}".html_safe
-  ="to the Christmas list."
+  = link_to @from.name, user_gifts_url(@from)
+  = "just added"
+  = link_to @gift.name, @gift.url
+  = "to the Christmas list."
 
 %p
-  ="Love,"
-  ="#{link_to 'huntxmas.com', 'http://huntxmas.com'}".html_safe
-
+  = "Love,"
+  = link_to 'huntxmas.com', root_url
