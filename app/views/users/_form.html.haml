@@ -3,10 +3,10 @@
     = f.label :name
     = f.label :email
     = f.label :password
-    = f.label :email_updates?
+    = f.label :email_notifications
   .fields
     = f.text_field :name
     = f.text_field :email
     = f.password_field :password
-    = f.check_box :email_updates
+    = f.check_box :email_notifications
   = f.submit submit_text, :class => 'submit'
