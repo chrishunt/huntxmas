@@ -18,7 +18,7 @@ class GiftsController < ApplicationController
     @user = User.find(params[:user_id])
     @gift = @user.gifts.build(params[:gift])
     if @gift.save
-      send_notifications_for(@user)
+      send_notifications_for(@user, @gift)
       redirect_to user_gifts_path(@user), :notice => 'Your gift has been added!'
     else
       flash.now[:error] = 'Both name and url are required!'
@@ -84,7 +84,7 @@ class GiftsController < ApplicationController
 
   private
 
-  def send_notifications_for(user)
-    NewGiftNotifier.new.notifications_for(user)
+  def send_notifications_for(user, gift)
+    NewGiftNotifier.new.notifications_for(user, gift)
   end
 end

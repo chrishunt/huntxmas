@@ -14,7 +14,7 @@ describe NewGiftNotifier do
 
       GiftMailer.should_receive(:gift_added_notification).twice
 
-      subject.notifications_for(nil)
+      subject.notifications_for(nil, nil)
     end
   end
 end

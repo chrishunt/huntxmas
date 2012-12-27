@@ -94,7 +94,7 @@ describe GiftsController do
         end
 
         it 'notifies users that gift was added' do
-          controller.should_receive(:send_notifications_for).with(@user)
+          controller.should_receive(:send_notifications_for)
           post :create, :user_id => @user, :gift => @gift.attributes
         end
 
