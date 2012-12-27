@@ -10,6 +10,7 @@ Feature: Add a gift to gift list
 
   Scenario: Adding a gift when logged in
     Given I am logged in
+    And there are 2 test users with notifications created
     When I visit the add gift page
     And I fill in 'gift_name' with 'Xbox 360'
     And I fill in 'gift_url' with 'http://xbox.com'
@@ -17,6 +18,7 @@ Feature: Add a gift to gift list
     Then I should see 'gift has been added'
     And I should be on my gift list
     And I should see 'Xbox 360'
+    And 2 emails should have been sent
 
   Scenario: I am not logged in
     Given I am not logged in

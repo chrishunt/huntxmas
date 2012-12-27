@@ -22,6 +22,10 @@ group :test do
   gem 'factory_girl_rails'
 end
 
+group :development do
+  gem 'mailcatcher'
+end
+
 group :production do
   gem 'pg'
 end
