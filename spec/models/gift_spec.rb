@@ -67,12 +67,12 @@ describe Gift do
     end
 
     it 'returns true when the gift has been purchased' do
-      @gift.stub!(:purchased_by_user_id).and_return(1)
+      @gift.stub(:purchased_by_user_id).and_return(1)
       @gift.purchased?.should == true
     end
 
     it 'returns false when the gift has not been purchased' do
-      @gift.stub!(:purchased_by_user_id).and_return(nil)
+      @gift.stub(:purchased_by_user_id).and_return(nil)
       @gift.purchased?.should == false
     end
   end

@@ -37,7 +37,7 @@ describe UsersController do
   describe '#new' do
     before(:each) do
       @user = FactoryGirl.build(:user)
-      User.stub!(:new).and_return(@user)
+      User.stub(:new).and_return(@user)
       get :new
     end
 
