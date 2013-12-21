@@ -9,6 +9,7 @@ gem 'jquery-rails', '~> 3.0.4'
 gem 'pg',           '~> 0.17.1'
 gem 'rspec',        '~> 2.14.1'
 gem 'sqlite3',      '~> 1.3.8'
+gem 'unicorn',      '~> 4.7.0'
 
 # Assets
 gem 'coffee-rails', '~> 4.0.1'
