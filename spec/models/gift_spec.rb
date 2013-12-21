@@ -38,7 +38,7 @@ describe Gift do
 
     context 'when purchased by another user' do
       before(:each) do
-        gift = FactoryGirl.create(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, user: @creator)
         gift.sell!(@another_user)
         @gift = Gift.find(gift)
       end
@@ -50,7 +50,7 @@ describe Gift do
 
     context 'when purchased by the gift creater' do
       before(:each) do
-        gift = FactoryGirl.create(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, user: @creator)
         gift.sell!(@creator)
         @gift = Gift.find(gift)
       end
@@ -67,12 +67,12 @@ describe Gift do
     end
 
     it 'returns true when the gift has been purchased' do
-      @gift.stub!(:purchased_by_user_id).and_return(1)
+      @gift.stub(:purchased_by_user_id).and_return(1)
       @gift.purchased?.should == true
     end
 
     it 'returns false when the gift has not been purchased' do
-      @gift.stub!(:purchased_by_user_id).and_return(nil)
+      @gift.stub(:purchased_by_user_id).and_return(nil)
       @gift.purchased?.should == false
     end
   end
@@ -95,7 +95,7 @@ describe Gift do
 
   describe '#return!' do
     before(:each) do
-      gift = FactoryGirl.create(:gift, :purchased_by_user_id => 1)
+      gift = FactoryGirl.create(:gift, purchased_by_user_id: 1)
       gift.return!
       @gift = Gift.find(gift)
     end

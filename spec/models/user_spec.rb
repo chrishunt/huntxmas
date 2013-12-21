@@ -3,7 +3,7 @@ require 'spec_helper.rb'
 describe User do
   describe 'validations' do
     before(:each) do
-      @user = FactoryGirl.build(:user, :email => 'user@email.com')
+      @user = FactoryGirl.build(:user, email: 'user@email.com')
     end
 
     it 'has no errors when all validations are met' do
@@ -32,14 +32,8 @@ describe User do
 
     it 'requires unique email address' do
       @user.save.should == true
-      user2 = FactoryGirl.build(:user, :email => 'user@email.com')
+      user2 = FactoryGirl.build(:user, email: 'user@email.com')
       user2.save.should == false
-    end
-
-    it 'requires presence of password' do
-      @user.password = nil
-      @user.save.should == false
-      @user.errors.size.should == 1
     end
 
     it 'has many gifts' do
@@ -55,7 +49,7 @@ describe User do
     context 'when gift is owned by another user' do
       before(:each) do
         @another_user = FactoryGirl.create(:user)
-        @gift = FactoryGirl.create(:gift, :user => @another_user)
+        @gift = FactoryGirl.create(:gift, user: @another_user)
         @user.purchase(@gift)
         @gift = Gift.find(@gift)
       end
@@ -71,7 +65,7 @@ describe User do
 
     context 'when gift is owned by the same user' do
       before(:each) do
-        @gift = FactoryGirl.create(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, user: @user)
         @user.purchase(@gift)
         @gift = Gift.find(@gift)
       end

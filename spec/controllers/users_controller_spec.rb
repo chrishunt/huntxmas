@@ -3,8 +3,8 @@ require 'spec_helper.rb'
 describe UsersController do
   describe '#index' do
     before(:each) do
-      @user1 = FactoryGirl.create(:user, :name => 'Sam')
-      @user2 = FactoryGirl.create(:user, :name => 'Bob')
+      @user1 = FactoryGirl.create(:user, name: 'Sam')
+      @user2 = FactoryGirl.create(:user, name: 'Bob')
       @users = [@user2, @user1]
     end
 
@@ -37,7 +37,7 @@ describe UsersController do
   describe '#new' do
     before(:each) do
       @user = FactoryGirl.build(:user)
-      User.stub!(:new).and_return(@user)
+      User.stub(:new).and_return(@user)
       get :new
     end
 
@@ -58,7 +58,7 @@ describe UsersController do
 
       context 'and passing the same user id' do
         before(:each) do
-          get :edit, :id => @user.id
+          get :edit, id: @user.id
         end
 
         it 'passes the current_user to the view' do
@@ -70,7 +70,7 @@ describe UsersController do
       context 'and passing a different user id' do
         before(:each) do
           another_user = FactoryGirl.create(:user)
-          get :edit, :id => another_user.id
+          get :edit, id: another_user.id
         end
 
         it 'passes the current_user to the view' do
@@ -81,7 +81,7 @@ describe UsersController do
 
       context 'and id is invalid' do
         before(:each) do
-          get :edit, :id => 100
+          get :edit, id: 100
         end
 
         it 'passes the current_user to the view' do
@@ -93,7 +93,7 @@ describe UsersController do
 
     context 'when not logged in' do
       before(:each) do
-        get :edit, :id => @user.id
+        get :edit, id: @user.id
       end
 
       it 'redirects to login page' do
@@ -110,10 +110,10 @@ describe UsersController do
 
     context 'with valid parameters' do
       before(:each) do
-        post :create, :user => {
-          :name     => @user.name,
-          :email    => @user.email,
-          :password => @user.password }
+        post :create, user: {
+          name: @user.name,
+          email: @user.email,
+          password: @user.password }
       end
 
       it 'saves the new user in the database' do
@@ -133,10 +133,10 @@ describe UsersController do
 
     context 'with capitalized email address' do
       before(:each) do
-        post :create, :user => {
-          :name     => @user.name,
-          :email    => @user.email.upcase,
-          :password => @user.password }
+        post :create, user: {
+          name: @user.name,
+          email: @user.email.upcase,
+          password: @user.password }
       end
 
       it 'converts the email to lowercase before save' do
@@ -150,7 +150,7 @@ describe UsersController do
 
     context 'with invalid parameters' do
       before(:each) do
-        post :create, :user => {:name => nil}
+        post :create, user: {name: nil}
       end
 
       it 'does not save a user in the database' do
@@ -167,9 +167,9 @@ describe UsersController do
     before(:each) do
       @user = FactoryGirl.create(:user)
       @attributes = {
-        :name     => 'Bob',
-        :email    => 'bob@example.com',
-        :password => 'newsecret' }
+        name: 'Bob',
+        email: 'bob@example.com',
+        password: 'newsecret' }
     end
 
     context 'when logged in' do
@@ -179,7 +179,7 @@ describe UsersController do
 
       context 'with valid parameters' do
         before(:each) do
-          post :update, :id => @user, :user => @attributes
+          post :update, id: @user, user: @attributes
         end
 
         it 'updates the attributes in the database' do
@@ -201,7 +201,7 @@ describe UsersController do
       context 'with capitalized email address' do
         before(:each) do
           @attributes[:email] = @attributes[:email].upcase
-          post :update, :id => @user, :user => @attributes
+          post :update, id: @user, user: @attributes
         end
 
         it 'converts the email to lowercase before save' do
@@ -215,7 +215,7 @@ describe UsersController do
 
       context 'with invalid parameters' do
         before(:each) do
-          post :update, :id => @user, :user => { :name => nil }
+          post :update, id: @user, user: { name: nil }
         end
 
         it 'does not update the user' do
@@ -232,7 +232,7 @@ describe UsersController do
       context 'and updating another user' do
         before(:each) do
           @another_user = FactoryGirl.create(:user)
-          post :update, :id => @another_user, :user => @attributes
+          post :update, id: @another_user, user: @attributes
         end
 
         it 'still updates the logged in user' do
@@ -244,7 +244,7 @@ describe UsersController do
 
     context 'when not logged in' do
       before(:each) do
-        post :update, :id => @user, :user => @attributes
+        post :update, id: @user, user: @attributes
       end
 
       it 'does not update the user' do
