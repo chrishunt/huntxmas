@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
     @user.email = @user.email.try(:downcase)
     if @user.save
       redirect_to login_path, notice: "Account created! You may now login."
@@ -25,15 +25,30 @@ class UsersController < ApplicationController
   end
 
   def update
-    attrs = params[:user]
-    attrs[:email] = attrs[:email].downcase if attrs[:email]
     @user = current_user
-    if @user.update_attributes attrs
+    if @user.update_attributes user_params
       redirect_to user_gifts_path(@user),
         notice: "Your account details have been updated!"
     else
       flash.now[:error] = "Sorry! There were errors updating your account."
       render 'edit'
+    end
+  end
+
+  private
+
+  def user_params
+    @user_params ||= begin
+      params.require(:user).permit([
+        :email,
+        :email_notifications,
+        :name,
+        :password,
+        :password_confirmation
+      ]).tap do |params|
+        params[:email] = params[:email].to_s.downcase
+        params[:password_confirmation] ||= params[:password]
+      end
     end
   end
 end
