@@ -33,7 +33,7 @@ Then /^I should not see selector '(.*)'$/ do |selector|
 end
 
 When /^I fill in '(.*)' with '(.*)'$/ do |id, text|
-  fill_in id, :with => text
+  fill_in id, with: text
 end
 
 When /^I click the button '(.*)'$/ do |text|

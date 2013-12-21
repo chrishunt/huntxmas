@@ -4,22 +4,22 @@
       - if current_user == gift.user
         .actions
           = link_to 'Edit',
-              edit_user_gift_path(:user_id => gift.user, :id => gift),
-              :class => 'edit'
+              edit_user_gift_path(user_id: gift.user, id: gift),
+              class: 'edit'
           = link_to 'Delete',
-              user_gift_path(:user_id => gift.user, :id => gift),
-              :method => :delete,
-              :class  => 'delete'
+              user_gift_path(user_id: gift.user, id: gift),
+              method: :delete,
+              class: 'delete'
       - else
         .actions
           - if gift.purchased?
             = link_to 'Unmark as Purchased',
-                return_user_gift_path(:user_id => gift.user, :id => gift),
-                :title => 'Un-mark this gift as purchased',
-                :class => 'return'
+                return_user_gift_path(user_id: gift.user, id: gift),
+                title: 'Un-mark this gift as purchased',
+                class: 'return'
           - else
             = link_to 'Mark as Purchased',
-                purchase_user_gift_path(:user_id => gift.user, :id => gift),
-                :title => 'Mark this gift as purchased',
-                :class => 'purchase'
-      = link_to gift.name, gift.url, :target => 'blank'
+                purchase_user_gift_path(user_id: gift.user, id: gift),
+                title: 'Mark this gift as purchased',
+                class: 'purchase'
+      = link_to gift.name, gift.url, target: 'blank'

@@ -10,11 +10,11 @@
       #header
         %ul#navigation
           - if current_user
-            %li{:title => 'View all gift lists'}
+            %li{title: 'View all gift lists'}
               = link_to 'All Lists', users_path
-            %li{:title => 'View your gift list'}
+            %li{title: 'View your gift list'}
               = link_to 'My List', user_gifts_path(current_user)
-            %li{:title => 'Add a gift to your gift list'}
+            %li{title: 'Add a gift to your gift list'}
               = link_to 'Add Gift', new_user_gift_path(current_user)
         #current-user
           - if current_user
@@ -28,7 +28,7 @@
         - if flash
           %ul#flash-messages
             - flash.each do |type, message|
-              %li{:class => "flash #{type}"}= message
+              %li{class: "flash #{type}"}= message
         = yield
       #snowman
         = image_tag 'snowman.png'

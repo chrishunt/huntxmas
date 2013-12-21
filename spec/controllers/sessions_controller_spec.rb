@@ -9,21 +9,21 @@ describe SessionsController do
 
     context 'when using the correct password' do
       it 'saves the user_id in the session' do
-        post :create, :email => @user.email, :password => @user.password
+        post :create, email: @user.email, password: @user.password
         session[:user_id].should == @user.id
       end
     end
 
     context 'when using the wrong password' do
       it 'does not save the user_id in the session' do
-        post :create, :email => @user.email, :password => 'wrong'
+        post :create, email: @user.email, password: 'wrong'
         session[:user_id].should == nil
       end
     end
 
     context 'when capitalizing the email' do
       it 'saves the user_id in the session' do
-        post :create, :email => @user.email.upcase, :password => @user.password
+        post :create, email: @user.email.upcase, password: @user.password
         session[:user_id].should == @user.id
       end
     end

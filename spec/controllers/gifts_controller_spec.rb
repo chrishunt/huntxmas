@@ -7,13 +7,13 @@ describe GiftsController do
 
   context 'when not logged in' do
     it 'redirects to login page' do
-      get :index, :user_id => @user.id
+      get :index, user_id: @user.id
       response.should redirect_to(login_path)
 
-      get :new, :user_id => @user.id
+      get :new, user_id: @user.id
       response.should redirect_to(login_path)
 
-      post :create, :user_id => @user.id
+      post :create, user_id: @user.id
       response.should redirect_to(login_path)
     end
   end
@@ -25,15 +25,15 @@ describe GiftsController do
 
     describe '#index' do
       before(:each) do
-        @user1 = FactoryGirl.create(:user, :name => 'Bob')
+        @user1 = FactoryGirl.create(:user, name: 'Bob')
         @user2 = FactoryGirl.create(:user)
         @gift1 = FactoryGirl.create(:gift,
-          :name => 'Video Game',:user => @user1)
+          name: 'Video Game',user: @user1)
         @gift2 = FactoryGirl.create(:gift,
-          :name => 'Doll',       :user => @user2)
+          name: 'Doll',       user: @user2)
         @gift3 = FactoryGirl.create(:gift,
-          :name => 'Computer',   :user => @user1)
-        get :index, :user_id => @user1
+          name: 'Computer',   user: @user1)
+        get :index, user_id: @user1
       end
 
       it "returns list of all user's gifts in alphabetic order" do
@@ -44,7 +44,7 @@ describe GiftsController do
     describe '#new' do
       context 'when user id is valid' do
         before(:each) do
-          get :new, :user_id => @user
+          get :new, user_id: @user
         end
 
         it 'builds a new gift' do
@@ -62,7 +62,7 @@ describe GiftsController do
 
       context 'when user id is invalid' do
         before(:each) do
-          get :new, :user_id => 100
+          get :new, user_id: 100
         end
 
         it 'should not build a new gift' do
@@ -78,28 +78,28 @@ describe GiftsController do
     describe '#create' do
       before(:each) do
         Gift.all.size.should == 0
-        @gift = FactoryGirl.build(:gift, :user => @user)
+        @gift = FactoryGirl.build(:gift, user: @user)
       end
 
       context 'with valid gift attributes' do
         it 'saves gift in database' do
-          post :create, :user_id => @user, :gift => @gift.attributes
+          post :create, user_id: @user, gift: @gift.attributes
           Gift.all.size.should == 1
         end
 
         it 'assigns gift as instance variable' do
-          post :create, :user_id => @user, :gift => @gift.attributes
+          post :create, user_id: @user, gift: @gift.attributes
           assigns(:gift).name.should == @gift.name
           assigns(:gift).url.should == @gift.url
         end
 
         it 'notifies users that gift was added' do
           controller.should_receive(:send_notifications_for)
-          post :create, :user_id => @user, :gift => @gift.attributes
+          post :create, user_id: @user, gift: @gift.attributes
         end
 
         it 'redirects back to user gift list' do
-          post :create, :user_id => @user, :gift => @gift.attributes
+          post :create, user_id: @user, gift: @gift.attributes
           response.should redirect_to(user_gifts_path(@user))
         end
       end
@@ -107,7 +107,7 @@ describe GiftsController do
       context 'with invalid gift attributes' do
         before(:each) do
           @gift.name = nil
-          post :create, :user_id => @user, :gift => @gift.attributes
+          post :create, user_id: @user, gift: @gift.attributes
         end
 
         it 'should not redirect to gift list' do
@@ -119,14 +119,14 @@ describe GiftsController do
     describe '#edit' do
       before(:each) do
         @gift = FactoryGirl.create(:gift,
-                        :name => 'Book',
-                        :url  => 'http://books.com',
-                        :user => @user)
+                        name: 'Book',
+                        url: 'http://books.com',
+                        user: @user)
       end
 
       context 'with valid id' do
         before(:each) do
-          get :edit, :user_id => @user, :id => @gift
+          get :edit, user_id: @user, id: @gift
         end
 
         it 'assigns gift as instance variable' do
@@ -142,7 +142,7 @@ describe GiftsController do
 
       context 'with invalid id' do
         before(:each) do
-          get :edit, :user_id => @user, :id => 100
+          get :edit, user_id: @user, id: 100
         end
 
         it 'redirects to the user index' do
@@ -153,16 +153,16 @@ describe GiftsController do
 
     describe '#update' do
       before(:each) do
-        @gift = FactoryGirl.create(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, user: @user)
       end
 
       context 'with valid gift attributes' do
         context 'as the correct user' do
           before(:each) do
             put :update,
-              :user_id => @user,
-              :id      => @gift,
-              :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+              user_id: @user,
+              id: @gift,
+              gift: { name: 'Xbox 360', url: 'http://xbox.com' }
           end
 
           it 'updates gift record in database' do
@@ -188,9 +188,9 @@ describe GiftsController do
         context 'as another user' do
           before(:each) do
             put :update,
-              :user_id => FactoryGirl.create(:user),
-              :id      => @gift,
-              :gift    => { :name => 'Xbox 360', :url => 'http://xbox.com' }
+              user_id: FactoryGirl.create(:user),
+              id: @gift,
+              gift: { name: 'Xbox 360', url: 'http://xbox.com' }
           end
 
           it 'does not update gift' do
@@ -208,9 +208,9 @@ describe GiftsController do
       context 'with invalid gift attributes' do
         before(:each) do
           put :update,
-            :user_id => @user,
-            :id      => @gift,
-            :gift    => { :name => nil, :url => @gift.url }
+            user_id: @user,
+            id: @gift,
+            gift: { name: nil, url: @gift.url }
         end
 
         it 'does not redirect' do
@@ -221,13 +221,13 @@ describe GiftsController do
 
     describe '#destroy' do
       before(:each) do
-        @gift = FactoryGirl.create(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, user: @user)
         Gift.all.count.should == 1
       end
 
       context 'with valid gift id' do
         before(:each) do
-          delete :destroy, :user_id => @user, :id => @gift
+          delete :destroy, user_id: @user, id: @gift
         end
 
         it 'deletes the gift from the database' do
@@ -245,7 +245,7 @@ describe GiftsController do
 
       context 'with invalid gift id' do
         before(:each) do
-          delete :destroy, :user_id => @user, :id => @gift.id + 1
+          delete :destroy, user_id: @user, id: @gift.id + 1
         end
 
         it 'should not delete a gift' do
@@ -260,12 +260,12 @@ describe GiftsController do
 
     describe '#purchase' do
       before(:each) do
-        @gift = FactoryGirl.create(:gift, :user => @user)
+        @gift = FactoryGirl.create(:gift, user: @user)
       end
 
       context 'with an invalid gift id' do
         before(:each) do
-          get :purchase, :user_id => @user.id, :id => 100
+          get :purchase, user_id: @user.id, id: 100
         end
 
         it 'redirects to users index' do
@@ -277,7 +277,7 @@ describe GiftsController do
         before(:each) do
           another_user = FactoryGirl.create(:user)
           session[:user_id] = another_user.id
-          get :purchase, :user_id => @user.id, :id => @gift.id
+          get :purchase, user_id: @user.id, id: @gift.id
         end
 
         it 'assigns the correct gift' do
@@ -299,7 +299,7 @@ describe GiftsController do
 
       context 'as the gift creater' do
         before(:each) do
-          get :purchase, :user_id => @user.id, :id => @gift.id
+          get :purchase, user_id: @user.id, id: @gift.id
         end
 
         it 'assigns the correct gift' do
@@ -318,13 +318,13 @@ describe GiftsController do
 
     describe '#return' do
       before(:each) do
-        @gift = FactoryGirl.create(:gift, :user => FactoryGirl.create(:user))
+        @gift = FactoryGirl.create(:gift, user: FactoryGirl.create(:user))
       end
 
       context 'when the gift has been purchased by the current user' do
         before(:each) do
           @user.purchase(@gift)
-          get :return, :user_id => @gift.user, :id => @gift
+          get :return, user_id: @gift.user, id: @gift
         end
 
         it 'returns the gift to an unpurchased state' do
@@ -340,7 +340,7 @@ describe GiftsController do
         before(:each) do
           @another_user = FactoryGirl.create(:user)
           @another_user.purchase(@gift)
-          get :return, :user_id => @gift.user, :id => @gift
+          get :return, user_id: @gift.user, id: @gift
         end
 
         it 'leaves the gift in a purchased state' do
@@ -354,7 +354,7 @@ describe GiftsController do
 
       context 'with an invalid gift id' do
         before(:each) do
-          get :return, :user_id => @gift.user, :id => 100
+          get :return, user_id: @gift.user, id: 100
         end
 
         it 'redirects to the users path' do

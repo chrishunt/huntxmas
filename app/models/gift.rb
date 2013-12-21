@@ -1,9 +1,9 @@
 class Gift < ActiveRecord::Base
   belongs_to :user
 
-  validates :user, :presence => true
-  validates :name, :presence => true
-  validates :url,  :presence => true
+  validates :user, presence: true
+  validates :name, presence: true
+  validates :url,  presence: true
 
   def sell!(user)
     self.purchased_by_user_id = user.id unless self.user == user

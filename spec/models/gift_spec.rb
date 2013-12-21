@@ -38,7 +38,7 @@ describe Gift do
 
     context 'when purchased by another user' do
       before(:each) do
-        gift = FactoryGirl.create(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, user: @creator)
         gift.sell!(@another_user)
         @gift = Gift.find(gift)
       end
@@ -50,7 +50,7 @@ describe Gift do
 
     context 'when purchased by the gift creater' do
       before(:each) do
-        gift = FactoryGirl.create(:gift, :user => @creator)
+        gift = FactoryGirl.create(:gift, user: @creator)
         gift.sell!(@creator)
         @gift = Gift.find(gift)
       end
@@ -95,7 +95,7 @@ describe Gift do
 
   describe '#return!' do
     before(:each) do
-      gift = FactoryGirl.create(:gift, :purchased_by_user_id => 1)
+      gift = FactoryGirl.create(:gift, purchased_by_user_id: 1)
       gift.return!
       @gift = Gift.find(gift)
     end
