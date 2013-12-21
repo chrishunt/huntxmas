@@ -18,7 +18,7 @@ class GiftsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @gift = @user.gifts.build(params[:gift])
+    @gift = @user.gifts.build(gift_params)
     if @gift.save
       send_notifications_for(@user, @gift)
       redirect_to user_gifts_path(@user), notice: 'Your gift has been added!'
@@ -40,7 +40,7 @@ class GiftsController < ApplicationController
   def update
     @gift = Gift.find(params[:id])
     @user = User.find(params[:user_id])
-    if current_user == @user && @gift.update_attributes(params[:gift])
+    if current_user == @user && @gift.update_attributes(gift_params)
       redirect_to user_gifts_path(@gift.user), notice: 'Your gift has been updated!'
     else
       flash.now[:error] = 'Both name and url are required!'
@@ -88,5 +88,9 @@ class GiftsController < ApplicationController
 
   def send_notifications_for(user, gift)
     NewGiftNotifier.new.notifications_for(user, gift)
+  end
+
+  def gift_params
+    params.require(:gift).permit(:name, :url)
   end
 end
