@@ -36,12 +36,6 @@ describe User do
       user2.save.should == false
     end
 
-    it 'requires presence of password' do
-      @user.password = nil
-      @user.save.should == false
-      @user.errors.size.should == 1
-    end
-
     it 'has many gifts' do
       @user.gifts.should_not == nil
     end
