@@ -17,7 +17,7 @@ group :test do
   gem 'turn', '~> 0.8.3', :require => false
   gem 'rspec-rails'
   gem 'capybara'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
 end
