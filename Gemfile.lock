@@ -29,7 +29,7 @@ GEM
     ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
-    bcrypt-ruby (3.0.1)
+    bcrypt-ruby (3.1.2)
     builder (3.1.4)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -185,7 +185,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt-ruby
+  bcrypt-ruby (~> 3.1.2)
   capybara
   coffee-rails
   cucumber-rails

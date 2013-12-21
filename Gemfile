@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '4.0.2'
 gem 'sqlite3'
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'jquery-rails'
 gem 'rspec'
 gem 'haml'
