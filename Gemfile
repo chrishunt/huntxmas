@@ -1,17 +1,17 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '4.0.2'
 gem 'sqlite3'
 gem 'bcrypt-ruby'
 gem 'jquery-rails'
 gem 'rspec'
 gem 'haml'
+gem 'pg'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+# Assets
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :test do
   gem 'turn', '~> 0.8.3', :require => false
@@ -26,6 +26,3 @@ group :development do
   gem 'mailcatcher'
 end
 
-group :production do
-  gem 'pg'
-end
