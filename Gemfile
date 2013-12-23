@@ -9,6 +9,7 @@ gem 'jquery-rails', '~> 3.0.4'
 gem 'pg',           '~> 0.17.1'
 gem 'rspec',        '~> 2.14.1'
 gem 'sidekiq',      '~> 2.17.1'
+gem 'sinatra',      '~> 1.4.4'
 gem 'unicorn',      '~> 4.7.0'
 
 # Assets
