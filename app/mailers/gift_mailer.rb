@@ -6,13 +6,8 @@ class GiftMailer < ActionMailer::Base
     @to = to
     @gift = gift
 
-    attachments.inline['snowman.png'] = File.read(
-      'app/assets/images/snowman.png'
-    )
-
-    mail(
+    mail \
       to: to.email,
       subject: "#{from.name} added a new Christmas gift"
-    )
   end
 end
