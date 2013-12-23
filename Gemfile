@@ -29,5 +29,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'rails_12factor', '0.0.2'
+  gem 'exception_notification', '4.0.1'
+  gem 'rails_12factor',         '0.0.2'
 end

@@ -11,5 +11,7 @@ Xmaslist::Application.routes.draw do
   get 'login'  => 'sessions#new'
   get 'logout' => 'sessions#destroy'
 
+  get 'boomtown' => 'boomtown#boomtown'
+
   root to: 'users#index'
 end
