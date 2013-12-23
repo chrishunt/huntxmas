@@ -87,7 +87,7 @@ class GiftsController < ApplicationController
   private
 
   def send_notifications_for(user, gift)
-    NewGiftNotifier.new.notifications_for(user, gift)
+    GiftNotifierWorker.perform_async user.id, gift.id
   end
 
   def gift_params
