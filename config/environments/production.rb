@@ -67,4 +67,11 @@ Xmaslist::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # Send emails when we have an exception
+  config.middleware.use ExceptionNotification::Rack, email: {
+    email_prefix: "[huntxmas] Production ",
+    sender_address: %{"huntxmas" <no-reply@huntxmas.com>},
+    exception_recipients: %w{huntca@gmail.com}
+  }
 end
