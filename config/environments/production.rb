@@ -47,17 +47,18 @@ Xmaslist::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
-  config.action_mailer.default_url_options = { host: 'huntxmas.com' }
-  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    domain: 'smtp.gmail.com',
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'huntxmas.com' }
+  config.action_mailer.smtp_settings = {
+    domain: 'huntxmas.com',
+    enable_starttls_auto: true,
     authentication: :plain,
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD'],
-    enable_starttls_auto: true
+    address:   ENV['SMTP_ADDRESS'],
+    port:      ENV['SMTP_PORT'],
+    user_name: ENV['SMTP_USERNAME'],
+    password:  ENV['SMTP_PASSWORD']
   }
 
   # Enable threaded mode
