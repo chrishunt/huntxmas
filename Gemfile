@@ -27,7 +27,8 @@ group :test do
 end
 
 group :development, :test do
-  gem 'pry', '0.9.12.4'
+  gem 'better_errors', '1.1.0'
+  gem 'pry',           '0.9.12.4'
 end
 
 group :production do
